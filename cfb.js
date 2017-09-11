@@ -8,7 +8,7 @@ module.exports =
   // Retrieves single game data.
   //
   getGameData: function (s, callback) {
-    var team = s.toLowerCase();
+    var team = s.toLowerCase().trim();
     //
     // Team name must match exactly how the NCAA website displays it.
     // I really don't like this. Is there any better way to do it?
@@ -310,25 +310,25 @@ function retrieveGame(team, callback)  {
       // Team names and ranking
       var $ = cheerio.load(body);
       $('div.team').each(function(i, element){
-        var a = $(this).text().replace(/[0-9]+-[0-9]+/, '');
-        teams.push(a);
-        var b = $(this).prev();
-        apRank.push(b.text());
+        var teamName = $(this).text().replace(/[0-9]+-[0-9]+/, '');
+        teams.push(teamName.trim());
+        var teamRanking = $(this).prev(); // May not necessarily exist
+        apRank.push(teamRanking.text());
       });
       // Current game status
       $('div.game-championship').each(function(i, element){
-        var a = $(this).prev();
-        status.push(a.text().replace(/\s\s+/g, ' '));
+        var gameStatus = $(this).prev();
+        status.push(gameStatus.text().replace(/\s\s+/g, ' '));
       });
       // Game date and time
       $('.gamecenter').each(function(i, element){
-        var a = $(this).attr('href');
-        dates.push(dateFormat(Date.parse(a.substr(19,10)), "dddd, mmmm dS"));
+        var dateTime = $(this).attr('href');
+        dates.push(dateFormat(Date.parse(dateTime.substr(19,10)), "dddd, mmmm dS"));
       });
       // Game scores
       $('td.status-tray').each(function(i, element){
-        var a = $(this).prev();
-        scores.push(a.text());
+        var score = $(this).prev();
+        scores.push(score.text());
       });
 
       for (i = 0; i < teams.length; i++)  {
@@ -385,25 +385,25 @@ function retrieveAllActiveGames(callback)  {
       // Team names and ranking
       var $ = cheerio.load(body);
       $('div.team').each(function(i, element){
-        var a = $(this).text().replace(/[0-9]+-[0-9]+/, '');
-        teams.push(a);
-        var b = $(this).prev();
-        apRank.push(b.text());
+        var teamName = $(this).text().replace(/[0-9]+-[0-9]+/, '');
+        teams.push(teamName.trim());
+        var teamRanking = $(this).prev(); // May not necessarily exist
+        apRank.push(teamRanking.text());
       });
       // Current game status
       $('div.game-championship').each(function(i, element){
-        var a = $(this).prev();
-        status.push(a.text().replace(/\s\s+/g, ' '));
+        var gameStatus = $(this).prev();
+        status.push(gameStatus.text().replace(/\s\s+/g, ' '));
       });
       // Game date and time
       $('.gamecenter').each(function(i, element){
-        var a = $(this).attr('href');
-        dates.push(dateFormat(Date.parse(a.substr(19,10)), "dddd, mmmm dS"));
+        var dateTime = $(this).attr('href');
+        dates.push(dateFormat(Date.parse(dateTime.substr(19,10)), "dddd, mmmm dS"));
       });
       // Game scores
       $('td.status-tray').each(function(i, element){
-        var a = $(this).prev();
-        scores.push(a.text());
+        var score = $(this).prev();
+        scores.push(score.text());
       });
 
       var str = '';
