@@ -1,0 +1,20 @@
+{
+  "name": "rogxue-cfb-script",
+  "version": "0.0.1",
+  "description": "A sample Node.js app to get college football scores",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "director": "",
+    "tinyreq": "3.1.4",
+    "cheerio": "0.22.0",
+    "dateformat": "2.0.0",
+    "prompt": "1.0.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "license": "MIT"
+}
