@@ -9,7 +9,9 @@ var schema = {
   }
 }
 prompt.start();
-
+//
+// Prompts user to enter team or command.
+//
 prompt.get(schema, function (err, result) {
   var team = result.team.toLowerCase();
 

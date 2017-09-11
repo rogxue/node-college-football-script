@@ -4,9 +4,16 @@ const dateFormat = require("dateformat");
 
 module.exports =
 {
+  //
+  // Retrieves single game data.
+  //
   getGameData: function (s, callback) {
     var team = s.toLowerCase();
-
+    //
+    // Team name must match exactly how the NCAA website displays it.
+    // I really don't like this. Is there any better way to do it?
+    // This is the main thing that prevented me from adding FCS, D2, and D3 teams.
+    //
     if (team.match('air force')) {
       team = 'Air Force';
     } else if (team.match('Akron')) {
@@ -268,7 +275,9 @@ module.exports =
     } else {
       team = null;
     }
-
+    //
+    // Retrieves team game data if name is valid.
+    //
     if (team) {
       retrieveGame(team, function(result)  {
         callback(result);
@@ -278,14 +287,18 @@ module.exports =
       callback("Team not recognized.");
     }
   },
-
+  //
+  // Gets all active games.
+  //
   getActiveGames: function(callback) {
     retrieveAllActiveGames(function(result)  {
       callback(result);
     });
   }
 }
-
+//
+// Gets single game results.
+//
 function retrieveGame(team, callback)  {
   var teams = [];
   var apRank = [];
@@ -358,7 +371,9 @@ function retrieveGame(team, callback)  {
       }
   });
 }
-
+//
+// Gets all active game scores.
+//
 function retrieveAllActiveGames(callback)  {
   var teams = [];
   var apRank = [];
